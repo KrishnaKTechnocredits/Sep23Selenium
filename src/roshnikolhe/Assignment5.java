@@ -1,7 +1,9 @@
-/*Assignment4 Nov19
+/*Assignment5 Nov19
 - Navigate to http://automationbykrishna.com/index.html
 - Navigate Basic elements
-- Click 'Alert' and verify if alert message contains TechnoCredits
+- Click 'Javascript confirmation' >> 
+a. Accept and then verify the message by getText()
+b. Decline and then verify the message by getText()
 */
 
 package roshnikolhe;
@@ -12,66 +14,84 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Assignment4 {
+public class Assignment5 {
+	WebDriver driver;	
 	
-		WebDriver driver;	
+	void setUp() {
+		System.out.println("Step1. Launch Chrome Browser");
+		//String setProperty = System.setProperty("webdriver.chrome.driver","D:\\Technocredits\\Projects\\IDE\\Sep23Selenium\\ChromeDriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver",".\\chromeDriver\\chromedriver.exe");
+		driver = new ChromeDriver();
+		
+		System.out.println("Step2. Maximize the window");
+		driver.manage().window().maximize();
+		
+		System.out.println("Step3. Navigate to http://automationbykrishna.com/");
+		driver.get("http://automationbykrishna.com/");
+	}
 	
-		void setUp() {
-			System.out.println("Step1. Launch Chrome Browser");
-			//String setProperty = System.setProperty("webdriver.chrome.driver","D:\\Technocredits\\Projects\\IDE\\Sep23Selenium\\ChromeDriver\\chromedriver.exe");
-			System.setProperty("webdriver.chrome.driver",".\\chromeDriver\\chromedriver.exe");
-			driver = new ChromeDriver();
-			
-			System.out.println("Step2. Maximize the window");
-			driver.manage().window().maximize();
-			
-			System.out.println("Step3. Navigate to http://automationbykrishna.com/");
-			driver.get("http://automationbykrishna.com/");
-		}
-		
+
+	void verifyLogin() {
+
+	System.out.println("Step4. Navigate to Basic elements");
+	WebElement basicElement = driver.findElement(By.xpath("//a[@id='basicelements']"));
+	basicElement.click();
+	}
 	
-		void verifyLogin() {
+	void waitABit(int ms) {
+		try {
+			Thread.sleep(ms);
+		}catch(InterruptedException ie){
+			ie.printStackTrace();
+		}
+	}
 	
-		System.out.println("Step4. Navigate to Basic elements");
-		WebElement basicElement = driver.findElement(By.xpath("//a[@id='basicelements']"));
-		basicElement.click();
-		}
+	void javascriptAlertAccept() {
 		
-		void waitABit(int ms) {
-			try {
-				Thread.sleep(ms);
-			}catch(InterruptedException ie){
-				ie.printStackTrace();
-			}
-		}
+		System.out.println("Step5. Click 'Javascript confirmation'");
+		WebElement alertButton = driver.findElement(By.xpath("//button[@id='javascriptConfirmBox']"));
+		alertButton.click();
+		waitABit(3000);
+		Alert alert = driver.switchTo().alert();
+		String alertText = alert.getText();
+		System.out.println("Alert message contains: " + alertText);
 		
-		void javascriptAlert() {
-			
-			System.out.println("Step5. Click 'Alert' and verify if alert message contains TechnoCredits");
-			WebElement alertButton = driver.findElement(By.xpath("//button[@id='javascriptAlert']"));
-			alertButton.click();
-			waitABit(4000);
-			Alert alert = driver.switchTo().alert();
-			String alertText = alert.getText();
-			System.out.println("Alert message contains: " + alertText);
-			if(alertText.contains("TechnoCredits")) {
-				System.out.println("Test Pass");
-			}else {
-				System.out.println("Test Fail");
-			}
-			alert.accept();	
-		}
+		System.out.println("Step5.1 Accept and then verify the message");
+		alert.accept();	
 		
-		void closeBrowser() {
-			System.out.println("Browser Closed!");
-			driver.close();
-		}
+		String text = driver.findElement(By.xpath("//p[@id='pgraphdemo']")).getText();
+		System.out.println(text);
+	}
+	
+	void javascriptAlertDecline() {
 		
-		public static void main(String[] args) {
-			Assignment4 assignment4 = new Assignment4();
-			assignment4.setUp();
-			assignment4.verifyLogin();
-			assignment4.javascriptAlert();
-			assignment4.closeBrowser();
-		}
+		//System.out.println("Step5. Click 'Javascript confirmation'");
+		WebElement alertButton = driver.findElement(By.xpath("//button[@id='javascriptConfirmBox']"));
+		alertButton.click();
+		waitABit(3000);
+		Alert alert = driver.switchTo().alert();
+		String alertText = alert.getText();
+		System.out.println("Alert message contains: " + alertText);
+		
+		System.out.println("Step5.2 Accept and then verify the message");
+		alert.dismiss();	
+		
+		String text = driver.findElement(By.xpath("//p[@id='pgraphdemo']")).getText();
+		System.out.println(text);
+	}
+	
+	void closeBrowser() {
+		System.out.println("Browser Closed!");
+		driver.close();
+	}
+	
+	public static void main(String[] args) {
+		Assignment5 assignment5 = new Assignment5();
+		assignment5.setUp();
+		assignment5.verifyLogin();
+		assignment5.javascriptAlertAccept();
+		assignment5.javascriptAlertDecline();
+		assignment5.waitABit(3000);
+		assignment5.closeBrowser();
+	}
 }

@@ -4,14 +4,11 @@
 
 package onkar;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class Assignment10 {
 
@@ -36,34 +33,44 @@ public class Assignment10 {
 			e.printStackTrace();
 		}
 	}
-
-	void multiSelectTest() {
+	
+	void multiSelect() {
 		setup("http://automationbykrishna.com");
 
 		System.out.println("Navigate to Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
 		sleep(3000);
-
+		
 		System.out.println("Checkboxes and radios - Select multiple checkboxes");
-		WebElement selectOptions = driver.findElement(By.xpath("//select[@class='form-control']"));
+		WebElement selectOptions1 = driver.findElement(By.xpath("(//div[@class='form-group']//div[@class='checkbox'])[2]//input[@type='checkbox']"));
+		WebElement selectOptions2 = driver.findElement(By.xpath("(//div[@class='form-group']//div[@class='checkbox'])[3]//input[@type='checkbox']"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)", selectOptions);
-		Select optionsSelect = new Select(selectOptions);
-		List<WebElement> list = optionsSelect.getOptions();
-		int index = 0;
-		for (WebElement name : list) {
-			optionsSelect.selectByIndex(index);
-			index++;
-			/*if(index==4) 
-				break;*/
-		}
-		System.out.println("Selection first "+index+" option in multiselect list");
+		js.executeScript("arguments[0].scrollIntoView(true)", selectOptions1);
+		selectOptions1.click();
+		selectOptions2.click();
+		if (selectOptions1.isSelected() && selectOptions2.isSelected())
+			System.out.println("Test Passed");
+		else
+			System.out.println("Test Failed");
+		
+		System.out.println("Select Inline checkboxes");
+		WebElement inlineCheckbox1 = driver.findElement(By.xpath("//input[@id='inlineCheckbox1']"));
+		WebElement inlineCheckbox2 = driver.findElement(By.xpath("//input[@id='inlineCheckbox2']"));
+		WebElement inlineCheckbox3 = driver.findElement(By.xpath("//input[@id='inlineCheckbox3']"));
+		//.executeScript("arguments[0].scrollIntoView(true)", inlineCheckbox1);
+		inlineCheckbox1.click();
+		inlineCheckbox2.click();
+		inlineCheckbox3.click();
+		if (inlineCheckbox1.isSelected() && inlineCheckbox2.isSelected() && inlineCheckbox3.isSelected())
+			System.out.println("Test Passed");
+		else
+			System.out.println("Test Failed");
 		
 		System.out.println("Closed the browser");
 		driver.close();
 	}
-
+	
 	public static void main(String[] args) {
-		new Assignment10().multiSelectTest();
+		new Assignment10().multiSelect();
 	}
 }

@@ -34,23 +34,19 @@ public class Assignment13 {
 		}
 	}
 
-	void findNumberOfRowsAndColumns() {
+	void printLastRow() {
 		setup("http://automationbykrishna.com");
 
 		System.out.println("Navigate to Demo Tables");
 		driver.findElement(By.xpath("//a[@id='demotable']")).click();
 		sleep(3000);
 
-		List<WebElement> rows = driver.findElements(By.xpath("//table[@id='table1']/tbody/tr"));
-		int rowCount = rows.size();
+		List<WebElement> column = driver.findElements(By.xpath("//table[@id='table1']/thead/tr/th"));
+		int columnCount = column.size();
 		
-		List<WebElement> columns =
-		driver.findElements(By.xpath("//table[@id='table1']/thead/tr/th")); 
-		int columnCount = columns.size();
-		
-		System.out.print("Last row of the given table is : ");
+		System.out.print("Printed elements of the last row : ");
 		for(int index=1; index<=columnCount; index++) {
-			System.out.print(driver.findElement(By.xpath("//table[@id='table1']/tbody/tr["+rowCount+"]/td["+index+"]")).getText());
+			System.out.print(driver.findElement(By.xpath("//table[@id='table1']/tbody/tr[5]/td["+index+"]")).getText());
 			System.out.print(" ");
 		}
 		
@@ -59,6 +55,6 @@ public class Assignment13 {
 	}
 
 	public static void main(String[] args) {
-		new Assignment13().findNumberOfRowsAndColumns();
-	}
+		new Assignment13().printLastRow();
+	}	
 }

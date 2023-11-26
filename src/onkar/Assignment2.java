@@ -17,12 +17,16 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment2 {
 	
 	WebDriver driver;
 	
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -31,7 +35,7 @@ public class Assignment2 {
 		driver.manage().window().maximize();
 		
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 	
 	void sleep(int ms) {
@@ -42,9 +46,14 @@ public class Assignment2 {
 		}
 	}
 	
-	void verifyLogin() {
-		setup("http://automationbykrishna.com");
-		
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
+	}
+	
+	@Test
+	void verifyLogin() {		
 		System.out.println("click on Registration link");
 		driver.findElement(By.id("registration2")).click();
 		
@@ -86,12 +95,5 @@ public class Assignment2 {
 		else
 			System.out.println("Login test is failed");
 		javascriptAlert.accept();
-		
-		System.out.println("Close the browser");
-		driver.close();
-	}
-	
-	public static void main(String[] args) {
-		new Assignment2().verifyLogin();
 	}
 }

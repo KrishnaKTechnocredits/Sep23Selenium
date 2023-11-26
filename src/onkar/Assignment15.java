@@ -9,12 +9,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment15 {
 	
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -23,7 +27,7 @@ public class Assignment15 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -33,10 +37,15 @@ public class Assignment15 {
 			e.printStackTrace();
 		}
 	}
+	
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("\n"+"Close browser window");
+		driver.close();
+	}
 
+	@Test
 	void printAllRows() {
-		setup("http://automationbykrishna.com");
-
 		System.out.println("Navigate to Demo Tables");
 		driver.findElement(By.xpath("//a[@id='demotable']")).click();
 		sleep(3000);
@@ -55,12 +64,5 @@ public class Assignment15 {
 			}
 			System.out.println("");
 		}
-
-		System.out.println("\n"+"Closed the browser");
-		driver.close();
-	}
-
-	public static void main(String[] args) {
-		new Assignment15().printAllRows();
 	}	
 }

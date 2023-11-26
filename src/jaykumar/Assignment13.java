@@ -37,8 +37,7 @@ public class Assignment13 {
 		System.out.println("STEP - Click on Demo Tables link");
 		driver.findElement(By.id("demotable")).click();
 		waitABit(3000);	
-	
-		System.out.println("");
+		
 		List<WebElement> listOfCol = driver.findElements(By.xpath("//table[@id='table1']/thead/tr/th"));
 		int columns = listOfCol.size();
 		
@@ -51,6 +50,7 @@ public class Assignment13 {
 			System.out.print(" ");
 		}
 		
+		System.out.println();
 		System.out.println("STEP - Close browser");
 		driver.close();
 	}

@@ -11,7 +11,6 @@ public class Assignment3 {
 
 	void luanchChrome() {
 		System.setProperty("webdriver.chrome.driver", "D:\\Technocresdits\\Sep2023\\Chrome_Driver\\chromedriver.exe");
-
 		System.out.println("Luanch Chrome");
 		driver = new ChromeDriver();
 		System.out.println("Maximize window");

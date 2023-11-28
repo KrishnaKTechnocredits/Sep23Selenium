@@ -59,7 +59,7 @@ public class Assignment11 {
 		}
 		System.out.println("Step 5 : Selected first " + index + " option in list");
 
-		System.out.println("Step 6 : DesSelect atleast 1 checkboxes - Get List of all selected checkboxes.");
+		System.out.println("Step 6 : DeSelect atleast 1 checkboxes - Get List of all selected checkboxes.");
 		options.deselectByIndex(1);
 
 		System.out.println("Step 7 : List of remaining selections");
@@ -68,7 +68,7 @@ public class Assignment11 {
 			System.out.print(name.getText() + " ");
 		}
 
-		System.out.println("Step 8 : Close the Browser");
+		System.out.println("\nStep 8 : Close the Browser");
 		driver.close();
 	}
 }

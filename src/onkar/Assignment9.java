@@ -18,12 +18,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment9 {
 	
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeClass
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -32,7 +36,7 @@ public class Assignment9 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("https://www.facebook.com/");
 	}
 
 	void sleep(int ms) {
@@ -43,9 +47,14 @@ public class Assignment9 {
 		}
 	}
 	
+	@AfterClass
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
+	}
+	
+	@Test
 	void facebookDemoCustom() {
-		setup("https://www.facebook.com/");
-		
 		System.out.println("Click on 'Create new account'");
 		driver.findElement(By.xpath("//a[text()='Create new account']")).click();
 		sleep(2000);
@@ -82,12 +91,5 @@ public class Assignment9 {
 		WebElement selectPronoun = driver.findElement(By.xpath("//select[@name='preferred_pronoun']"));
 		Select pronounSelect = new Select(selectPronoun);
 		pronounSelect.selectByValue("2");
-		
-		System.out.println("Closed the browser");
-		driver.close();	
-	}
-	
-	public static void main(String[] args) {
-		new Assignment9().facebookDemoCustom();
 	}
 }

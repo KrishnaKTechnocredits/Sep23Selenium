@@ -12,12 +12,16 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment6 {
 	
 	WebDriver driver;
-
-	void setup(String url) {
+	
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -26,7 +30,7 @@ public class Assignment6 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -37,9 +41,14 @@ public class Assignment6 {
 		}
 	}
 	
+	@AfterClass
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
+	}
+	
+	@Test
 	void verifyJavaPromt() {
-		setup("http://automationbykrishna.com");
-
 		System.out.println("Navigate Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
 		sleep(3000);
@@ -71,12 +80,5 @@ public class Assignment6 {
 			System.out.println("Cancellation message is shown correctly");
 		else
 			System.out.println("Cancellation message is not shown correctly");
-		
-		System.out.println("Closed the browser");
-		driver.close();;
-	}
-	
-	public static void main(String[] args) {
-		new Assignment6().verifyJavaPromt();
 	}
 }

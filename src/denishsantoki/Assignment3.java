@@ -15,23 +15,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment3 {
 
 	WebDriver driver;
-
+	
+	@BeforeClass
 	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Step-->Launch Chrome Browser");
 		driver = new ChromeDriver();// launch chrome browser
 		driver.manage().window().maximize();
+		driver.get("http://automationbykrishna.com");
 	}
-
-	void navigateToUrl() {
-		String url = "http://automationbykrishna.com";
-		driver.navigate().to(url);
-	}
-
+	
+	@Test
 	void basicElements() {
 		System.out.println("Step-->Click on Basic elements Link");
 		WebElement elementOpen = driver.findElement(By.id("basicelements"));
@@ -46,32 +47,28 @@ public class Assignment3 {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Test
 	void firstName() {
 		wait(3000);
 		System.out.println("Step-->Enter First Name");
 		WebElement firstName = driver.findElement(By.xpath("//input[@id='UserFirstName']"));
 		firstName.sendKeys("Denish");
-	}
-
-	void lastName() {
+		
 		System.out.println("Step-->Enter Last Name");
 		WebElement lastName = driver.findElement(By.xpath("//input[@id='UserLastName']"));
 		lastName.sendKeys("Santoki");
-	}
-
-	void compName() {
+		
 		System.out.println("Step-->Enter Company Name");
 		WebElement cmpName = driver.findElement(By.xpath("//input[@id='UserCompanyName']"));
 		cmpName.sendKeys("Apple");
-	}
-
-	void clkSubmit() {
+		
 		System.out.println("Step-->Click on Submit Button");
 		WebElement submit = driver.findElement(By.xpath("//button[@onclick='myFunctionPopUp()']"));
 		submit.click();
 	}
-
+	
+	@Test
 	void verify() {
 		Alert alert = driver.switchTo().alert();
 		String alertText = alert.getText();
@@ -83,16 +80,9 @@ public class Assignment3 {
 			System.out.println("Test pass");
 		}
 	}
-
-	public static void main(String[] args) {
-		Assignment3 assignment3 = new Assignment3();
-		assignment3.launchChrome();
-		assignment3.navigateToUrl();
-		assignment3.basicElements();
-		assignment3.firstName();
-		assignment3.lastName();
-		assignment3.compName();
-		assignment3.clkSubmit();
-		assignment3.verify();
+	
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

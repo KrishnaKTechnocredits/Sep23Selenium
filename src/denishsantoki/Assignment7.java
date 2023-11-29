@@ -14,29 +14,27 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class Assignment7 {
 	WebDriver driver;
-
+	
+	@BeforeTest
 	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+		driver.get("http://automationbykrishna.com/index.html");
 	}
 
-	void navigateUrl() {
-		String url = "http://automationbykrishna.com/index.html";
-		driver.navigate().to(url);
-	}
-
-	void basicElements() {
-
+	@Test
+	void checkboxandRadio() {
 		System.out.println("Basic elements");
 		driver.findElement(By.id("basicelements")).click();
-	}
-
-	void checkboxandRadio() {
+		
 		System.out.println("a. Checkboxes and radios >> Select 4th option verify 4th checkbox is selected or not");
 		try {
 			Thread.sleep(3000);
@@ -66,12 +64,9 @@ public class Assignment7 {
 			System.out.println("checkbox is not selected");
 		}
 	}
-
-	public static void main(String[] args) {
-		Assignment7 assignment7 = new Assignment7();
-		assignment7.launchChrome();
-		assignment7.navigateUrl();
-		assignment7.basicElements();
-		assignment7.checkboxandRadio();
+	
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

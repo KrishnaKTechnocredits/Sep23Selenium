@@ -14,17 +14,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment11 {
 	
 	WebDriver driver;
-
-	void launchChrome(String url) {
+	
+	@BeforeClass
+	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -34,9 +38,9 @@ public class Assignment11 {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Test
 	void verify() {
-		launchChrome("http://automationbykrishna.com");
 		System.out.println("Navigate to Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
 		sleep(3000);
@@ -62,11 +66,10 @@ public class Assignment11 {
 		for (WebElement option : selectedOptions) {
 			System.out.print(option.getText() + " ");
 		}
-		driver.close();
 	}
 	
-	public static void main(String[] args) {
-		Assignment11 ass = new Assignment11();
-		ass.verify();
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

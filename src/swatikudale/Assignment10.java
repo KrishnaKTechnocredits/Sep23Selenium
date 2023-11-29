@@ -9,11 +9,15 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment10 {
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch Chrome Browser and  Navigate to http://automationbykrishna.com");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -22,7 +26,7 @@ public class Assignment10 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -33,16 +37,18 @@ public class Assignment10 {
 		}
 	}
 
+	@Test
 	void verifyBasicElementCheckbox() {
-		setup("http://automationbykrishna.com");
 
 		System.out.println("Navigate Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
 		sleep(3000);
 
 		System.out.println("Checkboxes and radios - Select multiple checkboxes");
-		WebElement checkbox1 =  driver.findElement(By.xpath("(//div[@class='form-group']//div[@class='checkbox'])[2]//input[@type='checkbox']"));
-		WebElement checkbox2 =  driver.findElement(By.xpath("(//div[@class='form-group']//div[@class='checkbox'])[3]//input[@type='checkbox']"));
+		WebElement checkbox1 = driver.findElement(
+				By.xpath("(//div[@class='form-group']//div[@class='checkbox'])[2]//input[@type='checkbox']"));
+		WebElement checkbox2 = driver.findElement(
+				By.xpath("(//div[@class='form-group']//div[@class='checkbox'])[3]//input[@type='checkbox']"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true)", checkbox1);
 		checkbox1.click();
@@ -63,12 +69,11 @@ public class Assignment10 {
 			System.out.println("Test Pass");
 		else
 			System.out.println("Test Fail");
-
-		System.out.println("Close Browser");
-		driver.close();
 	}
 
-	public static void main(String[] args) {
-		new Assignment10().verifyBasicElementCheckbox();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

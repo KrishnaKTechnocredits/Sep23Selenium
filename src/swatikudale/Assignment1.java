@@ -4,13 +4,18 @@
 package swatikudale;
 
 import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment1 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("STEP 1/2: Launch Chrome Browser and  Navigate to http://automationbykrishna.com");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -19,11 +24,11 @@ public class Assignment1 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
+	@Test
 	void signUp() {
-		setup("http://automationbykrishna.com");
 
 		System.out.println("STEP 3:  Verify title should be Login Signup Demo");
 		String pageTitle = driver.getTitle();
@@ -83,13 +88,11 @@ public class Assignment1 {
 		} else {
 			System.out.println("Test Fail");
 		}
-
-		System.out.println("Close browser window");
-		driver.close();
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		Assignment1 assignment1 = new Assignment1();
-		assignment1.signUp();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

@@ -11,11 +11,15 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment6 {
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch Chrome Browser and  Navigate to http://automationbykrishna.com");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -24,7 +28,7 @@ public class Assignment6 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -35,9 +39,9 @@ public class Assignment6 {
 		}
 	}
 
+	@Test
 	void verifyJavaScriptPrompt() {
-		setup("http://automationbykrishna.com");
-		
+
 		System.out.println("Navigate Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
 		sleep(3000);
@@ -48,7 +52,7 @@ public class Assignment6 {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true)", element);
 		element.click();
-		
+
 		Alert javaScriptalert = driver.switchTo().alert();
 
 		System.out.println("a. Enter text and then verify the text");
@@ -68,17 +72,15 @@ public class Assignment6 {
 		javaScriptalert = driver.switchTo().alert();
 		javaScriptalert.dismiss();
 		actualText = driver.findElement(By.xpath("//p[@id='pgraphdemo']")).getText();
-		if(actualText.equals("User cancelled the prompt."))
+		if (actualText.equals("User cancelled the prompt."))
 			System.out.println("Test Pass");
 		else
 			System.out.println("Test Fail");
-		
-		System.out.println("Closing Browser");
+	}
+
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
 		driver.close();
 	}
-
-	public static void main(String[] args) {
-		new Assignment6().verifyJavaScriptPrompt();
-	}
-
 }

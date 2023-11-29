@@ -11,16 +11,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class Assignment8 {
 	WebDriver driver;
-
-	void launchChrome(String url) {
+	
+	@BeforeTest
+	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("https://www.facebook.com/");
 	}
 
 	void sleep(int ms) {
@@ -30,10 +34,9 @@ public class Assignment8 {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Test
 	void facebookDemo() {
-		launchChrome("https://www.facebook.com/");
-
 		System.out.println("Click on Create new account");
 		driver.findElement(By.xpath("//a [text() = 'Create new account']")).click();
 		sleep(3000);
@@ -65,12 +68,10 @@ public class Assignment8 {
 					"Gender is selected : " + driver.findElement(By.xpath("//label[text()='Male']")).getText());
 		else
 			System.out.println("Gender is not selected correctly");
-
-		driver.close();
 	}
 
-	public static void main(String[] args) {
-		Assignment8 ass = new Assignment8();
-		ass.facebookDemo();
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

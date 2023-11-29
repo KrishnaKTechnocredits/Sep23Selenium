@@ -11,16 +11,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment12 {
 	WebDriver driver;
-
-	void launchChrome(String url) {
+	
+	@BeforeClass
+	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -31,8 +35,8 @@ public class Assignment12 {
 		}
 	}
 	
+	@Test
 	void verify() throws InterruptedException{
-		launchChrome("http://automationbykrishna.com");
 		System.out.println("Navigate to Demo Table");
 		driver.findElement(By.xpath("//a[@id='demotable']")).click();
 		sleep(3000);
@@ -44,11 +48,10 @@ public class Assignment12 {
 		System.out.println("Find Number Of Rows");
 		List<WebElement> listOfRows = driver.findElements(By.xpath("//table[@class='table table-striped']/tbody/tr"));
 		System.out.println("Number Of Rows : " + listOfRows.size());
-		driver.close();
 	}
 	
-	public static void main(String[] args) throws InterruptedException{
-		Assignment12 ass = new Assignment12();
-		ass.verify();
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

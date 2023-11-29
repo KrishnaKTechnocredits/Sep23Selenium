@@ -13,44 +13,34 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment6 {
 
 	WebDriver driver;
-
+	
+	@BeforeClass
 	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-
+		driver.get("http://automationbykrishna.com/index.html");
 	}
-
-	void navigateUrl() {
-		String url = "http://automationbykrishna.com/index.html";
-		driver.navigate().to(url);
-	}
-
-	void basicElements() {
+	
+	@Test
+	void verify() {
 		System.out.println("Navigate to url");
 		driver.findElement(By.id("basicelements")).click();
-	}
-
-	void clickJavascriptPrompt() {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		sleep(2000);
 		WebElement e = driver.findElement(By.xpath("//button[@id='javascriptPromp']"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true)", e);
 		e.click();
-	}
-
-	void verify() {
+		sleep(2000);
+		
 		System.out.println("Enter text and then verify the text");
 		Alert alert = driver.switchTo().alert();
 		alert.sendKeys("Denish Santoki");
@@ -62,20 +52,30 @@ public class Assignment6 {
 			System.out.println("Text ok is pressed:--" + text);
 		}
 		System.out.println("Decline and then verify the text");
-		clickJavascriptPrompt();
-		alert.dismiss();
-		if (true) {
-			String text1 = driver.findElement(By.xpath("//p[@id='pgraphdemo']")).getText();
-			System.out.println("When cancel is pressed :--" + text1);
-		}
-	}
+		driver.findElement(By.xpath("//button[@id='javascriptPromp']")).click();
+		Alert javascriptAlert = driver.switchTo().alert();
+		String name = "Denish Santoki";
+		javascriptAlert.sendKeys(name);
+		javascriptAlert.dismiss();
+		String actualText = driver.findElement(By.xpath("//p[@id='pgraphdemo']")).getText();
+		if (actualText.equals("User cancelled the prompt."))
+			System.out.println("Cancellation message is shown correctly");
+		else
+			System.out.println("Cancellation message is not shown correctly");
 
-	public static void main(String[] args) {
-		Assignment6 assignment6 = new Assignment6();
-		assignment6.launchChrome();
-		assignment6.navigateUrl();
-		assignment6.basicElements();
-		assignment6.clickJavascriptPrompt();
-		assignment6.verify();
+	}
+	
+	@AfterClass
+	void tearDown() {
+		driver.close();
+	}
+	
+	void sleep(int time) {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

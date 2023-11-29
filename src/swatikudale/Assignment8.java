@@ -22,7 +22,7 @@ public class Assignment8 {
 
     void setup(String URL) {
         System.out.println("Launch Chrome Browser and  Navigate to facebook.com");
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver/chromedriver");
+		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
 
         System.out.println("Maximize browser window");

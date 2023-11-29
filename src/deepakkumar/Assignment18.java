@@ -47,5 +47,4 @@ public class Assignment18 {
 		Assignment18 output = new Assignment18();
 		output.uniquePositionsWebTable();
 	}
-
 }

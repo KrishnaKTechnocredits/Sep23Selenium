@@ -10,21 +10,25 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment5 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("STEP: Launch chrome browser");
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 
 		System.out.println("Maximize browser window");
 		driver.manage().window().maximize();
 
 		System.out.println("STEP: Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -35,8 +39,8 @@ public class Assignment5 {
 		}
 	}
 
+	@Test
 	void javascriptConfirmation() {
-		setup("http://automationbykrishna.com");
 
 		System.out.println("STEP: Navigate Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
@@ -59,16 +63,16 @@ public class Assignment5 {
 		javascriptAlert = driver.switchTo().alert();
 		javascriptAlert.dismiss();
 		actualText = driver.findElement(By.xpath("//p[@id='pgraphdemo']")).getText();
-		if (actualText.equals("You pressed Cancel!"))
+		if (actualText.equals("You pressed Cancel!")) {
 			System.out.println("Message shown is correct");
-		else
+		}else {
 			System.out.println("Message shown is incorrect");
-
-		System.out.println("Browser is closed");
-		driver.close();
+		}
 	}
 
-	public static void main(String[] args) {
-		new Assignment5().javascriptConfirmation();
+		@AfterMethod
+		void closeBrowser() {
+			System.out.println("Close browser window");
+			driver.close();
+		}
 	}
-}

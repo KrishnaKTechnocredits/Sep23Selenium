@@ -17,21 +17,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment9 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 
 		System.out.println("Maximize browser window");
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("https://www.facebook.com/");
 	}
 
 	void sleep(int ms) {
@@ -42,9 +46,8 @@ public class Assignment9 {
 		}
 	}
 
+	@Test
 	void facebookDemoCustom() {
-		setup("https://www.facebook.com/");
-
 		System.out.println("Click on 'Create new account'");
 		driver.findElement(By.xpath("//a[text()='Create new account']")).click();
 		sleep(2000);
@@ -72,22 +75,22 @@ public class Assignment9 {
 		System.out.println("Select Gender (Custom)");
 		WebElement genderRadio = driver.findElement(By.xpath("//input[@value='-1']"));
 		genderRadio.click();
-		if (genderRadio.isSelected())
+		if (genderRadio.isSelected()) {
 			System.out.println(
 					"Gender is selected : " + driver.findElement(By.xpath("//label[text()='Custom']")).getText());
-		else
+		} else {
 			System.out.println("Gender is not selected correctly");
+		}
 
 		System.out.println("Select your pronoun");
 		WebElement selectPronoun = driver.findElement(By.xpath("//select[@name='preferred_pronoun']"));
 		Select pronounSelect = new Select(selectPronoun);
 		pronounSelect.selectByValue("2");
-
-		System.out.println("Closed the browser");
-		//driver.close();
 	}
 
-	public static void main(String[] args) {
-		new Assignment9().facebookDemoCustom();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

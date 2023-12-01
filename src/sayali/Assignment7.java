@@ -12,67 +12,63 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment7 {
 	WebDriver driver;
 
+	@BeforeMethod
 	void launchChrome() {
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		System.out.println("STEP: Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+		System.out.println("Open given URL");
+		driver.get("http://automationbykrishna.com");
 	}
 
-	void navigateUrl() {
-		String url = "http://automationbykrishna.com/index.html";
-		System.out.println("STEP: Navigate to given url");
-		driver.navigate().to(url);
-	}
-
-	void basicElements() {
-
-		System.out.println("STEP: Navigate to Basic elements");
-		driver.findElement(By.id("basicelements")).click();
-	}
-
-	void checkboxandRadio() {
-		System.out
-				.println("STEP: a. Checkboxes and radios >> Select 4th option verify 4th checkbox is selected or not");
+	void sleep(int ms) {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(ms);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
 
-		WebElement radio = driver.findElement(By.xpath("//input[@id='optionsRadios2']"));
+	@Test
+	void basicElements() {
+
+		System.out.println("STEP: Navigate to Basic elements");
+		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
+		sleep(3000);
+		System.out.println(
+				"a. Checkboxes and radios >> Select 4th option verify 4th\r\n" + "checkbox is selected or not");
+		WebElement option4 = driver.findElement(By.xpath("//input[@id='optionsRadios2']"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)", radio);
-		radio.click();
+		js.executeScript("arguments[0].scrollIntoView(true)", option4);
+		option4.click();
+		if (option4.isSelected())
+			System.out.println("Test Pass");
+		else
+			System.out.println("Test Fail");
 
-		if (radio.isSelected()) {
-			System.out.println("Radio button is selected");
-		} else {
-			System.out.println("Radio button is not selected");
-		}
-		System.out
-				.println("STEP: b. Inline checkboxes >> Select 2nd option and verify 2nd checkbox is selected or not");
-		WebElement checkbox = driver.findElement(By.xpath("//input[@id='inlineCheckbox2']"));
-		JavascriptExecutor j = (JavascriptExecutor) driver;
-		j.executeScript("arguments[0].scrollIntoView(true)", checkbox);
-		checkbox.click();
+		System.out.println("b. Inline checkboxes >> Select 2nd option and verify 2nd checkbox is selected or not");
+		WebElement option2 = driver.findElement(By.xpath("//input[@id='inlineCheckbox2']"));
+		option2.click();
 
-		if (checkbox.isSelected()) {
+		if (option2.isSelected()) {
 			System.out.println("Checkbox is selected");
 		} else {
 			System.out.println("checkbox is not selected");
 		}
 	}
 
-	public static void main(String[] args) {
-		Assignment7 assignment7 = new Assignment7();
-		assignment7.launchChrome();
-		assignment7.navigateUrl();
-		assignment7.basicElements();
-		assignment7.checkboxandRadio();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

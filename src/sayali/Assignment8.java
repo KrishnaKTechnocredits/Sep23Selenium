@@ -15,21 +15,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment8 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("STEP: Launch chrome browser");
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 
 		System.out.println("Maximize browser window");
 		driver.manage().window().maximize();
 
 		System.out.println("STEP: Open given URL");
-		driver.get(url);
+		driver.get("https://www.facebook.com/");
 	}
 
 	void sleep(int ms) {
@@ -40,9 +44,9 @@ public class Assignment8 {
 		}
 	}
 
+	@Test
 	void facebookDemo() {
-		setup("https://www.facebook.com/");
-
+		
 		System.out.println("STEP: Click on 'Create new account'");
 		driver.findElement(By.xpath("//a[text()='Create new account']")).click();
 		sleep(3000);
@@ -70,17 +74,17 @@ public class Assignment8 {
 		System.out.println("Select Gender (Actual gender)");
 		WebElement genderRadio = driver.findElement(By.xpath("//input[@value='1']"));
 		genderRadio.click();
-		if (genderRadio.isSelected())
+		if (genderRadio.isSelected()) {
 			System.out.println(
 					"Gender is selected : " + driver.findElement(By.xpath("//label[text()='Female']")).getText());
-		else
+		} else {
 			System.out.println("Gender is not selected correctly");
-
-		System.out.println("Closed the browser");
-		driver.close();
+		}
 	}
-
-	public static void main(String[] args) {
-		new Assignment8().facebookDemo();
+	
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

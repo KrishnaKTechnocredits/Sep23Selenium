@@ -1,61 +1,46 @@
 package akshitak;
 
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class Assignment5 {
 
 	WebDriver driver;
 
-
+	@BeforeClass
 	void luanchChrome() {
 		System.setProperty("webdriver.chrome.driver", "D:\\Technocresdits\\Sep2023\\Chrome_Driver\\chromedriver.exe");
 		System.out.println("Luanch Chrome");
 		driver = new ChromeDriver();
 		System.out.println("Maximize window");
 		driver.manage().window().maximize();
-	}
-
-	void navigatrURL() {
-		luanchChrome();
 		System.out.println("Get URL");
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("http://automationbykrishna.com/");
 	}
-
-	void wait(int ms) {
-		try {
-			Thread.sleep(ms);
-		} catch (InterruptedException ie) {
-			ie.printStackTrace();
-		}
-	}
-
+	
+	@BeforeMethod
 	void basicElement() {
-		navigatrURL();
 		System.out.println("Navigate to Basic Element");
 		driver.findElement(By.id("basicelements")).click();
-		wait(2000);
 		System.out.println("Find Alert button");
-	}
-
-	void scrollTillView() {
-		basicElement();
 		System.out.println("Scroll till aruguments found");
-		wait(2000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true)", driver.findElement(By.id("javascriptConfirmBox")));
-	}
-
-	void clickConfirmAlert() {
-		scrollTillView();
 		driver.findElement(By.id("javascriptConfirmBox")).click();
-		wait(2000);
 		System.out.println("Click button");
 	}
 
+	@Test (priority =1)
 	void acceptAlert() {
 		System.out.println("Accept pop-up");
 		Alert alert = driver.switchTo().alert();
@@ -65,13 +50,11 @@ public class Assignment5 {
 			System.out.println("OK message match");
 		else
 			System.out.println("OK message not match");
-		wait(2000);
 	}
 
+	@Test (priority =2)
 	void cancelAlert() {
-		driver.findElement(By.id("javascriptConfirmBox")).click();
 		Alert alert = driver.switchTo().alert();
-		wait(2000);
 		System.out.println("Cancel pop-up");
 		alert.dismiss();
 		String msg1 = driver.findElement(By.id("pgraphdemo")).getText();
@@ -81,15 +64,8 @@ public class Assignment5 {
 			System.out.println("Cancel message not match");
 	}
 
-	void verifyMsg() {
-		clickConfirmAlert();
-		
-		acceptAlert();
-		cancelAlert();
+	@AfterClass
+	void closeBrowser() {
 		driver.close();
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		new Assignment5().verifyMsg();
 	}
 }

@@ -1,42 +1,39 @@
 package akshitak;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment7 {
 	WebDriver driver;
+	
+	@BeforeClass
 	void luanchChrome() {
 		System.setProperty("webdriver.chrome.driver", "D:\\Technocresdits\\Sep2023\\Chrome_Driver\\chromedriver.exe");
 		System.out.println("Luanch Chrome");
 		driver = new ChromeDriver();
 		System.out.println("Maximize window");
 		driver.manage().window().maximize();
-	}
-
-	void navigatrURL() {
-		luanchChrome();
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		System.out.println("Get URL");
 		driver.get("http://automationbykrishna.com/");
 	}
 
-	void wait(int ms) {
-		try {
-			Thread.sleep(ms);
-		} catch (InterruptedException ie) {
-			ie.printStackTrace();
-		}
-	}
-
+	@BeforeMethod
 	void basicElement() {
-		navigatrURL();
 		System.out.println("Click Basic Element");
 		driver.findElement(By.id("basicelements")).click();
-		wait(2000);
 	}
 
+	@Test
 	void scrollTillView() {
 		basicElement();
 		WebElement check1 = driver.findElement(
@@ -60,9 +57,10 @@ public class Assignment7 {
 			System.out.println("Radio is selected sucessully");
 		else
 			System.out.println("Failed to select radiobutton");
-		driver.close();
 	}
-	public static void main(String[] args) {
-		new Assignment7().scrollTillView();		
+	
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

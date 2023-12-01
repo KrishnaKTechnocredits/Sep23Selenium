@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Assignment7 {
+	
 	WebDriver driver;
 	
 	@BeforeClass

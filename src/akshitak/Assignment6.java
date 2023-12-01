@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Assignment6 {
+	
 	WebDriver driver;
 
 	@BeforeClass

@@ -16,6 +16,9 @@ Assignment11 Nov19 (Multiselect dropdown & deselect)
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,7 @@ import org.openqa.selenium.WebElement;
 public class Assignment11 {
 	WebDriver driver;
 
+	@BeforeClass
 	void luanchChrome() {
 		System.setProperty("webdriver.chrome.driver", "D:\\Technocresdits\\Sep2023\\Chrome_Driver\\chromedriver.exe");
 		System.out.println("Luanch Chrome");
@@ -37,30 +41,22 @@ public class Assignment11 {
 		System.out.println("Maximize window");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-	}
-
-	void navigatrURL() {
-		luanchChrome();
 		System.out.println("Get URL");
 		driver.get("http://automationbykrishna.com/");
 	}
 
+	@BeforeMethod
 	void basicElement() {
-		navigatrURL();
 		System.out.println("Navigate to Basic Element");
 		driver.findElement(By.id("basicelements")).click();
 		System.out.println("Find Alert button");
-	}
-
-	void scrollTillView() {
 		basicElement();
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)",
-				driver.findElement(By.xpath("//div[@class='col-lg-10']/label[1]")));
+		js.executeScript("arguments[0].scrollIntoView(true)",driver.findElement(By.xpath("//div[@class='col-lg-10']/label[1]")));
 	}
 
+	@Test
 	void selectAllCheckbox() {
-		scrollTillView();
 		System.out.println("Select all checkbox");
 		Select se = new Select(driver.findElement(By.xpath("//select[@class='form-control']")));
 		for (int index = 0; index <= 4; index++) {
@@ -74,9 +70,5 @@ public class Assignment11 {
 			System.out.println(name.getText());
 		}
 		driver.close();
-	}
-
-	public static void main(String[] args) {
-		new Assignment11().selectAllCheckbox();
 	}
 }

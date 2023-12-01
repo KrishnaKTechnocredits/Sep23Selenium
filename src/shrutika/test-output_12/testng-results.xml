@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-11-29T23:03:48 IST" name="Default suite" finished-at="2023-11-29T23:03:51 IST" duration-ms="3265">
+    <groups>
+    </groups>
+    <test started-at="2023-11-29T23:03:48 IST" name="Default test" finished-at="2023-11-29T23:03:51 IST" duration-ms="3265">
+      <class name="shrutika.Assignment12">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:shrutika.Assignment12@2accdbb5]" started-at="2023-11-29T23:03:48 IST" name="setUpBrowser" finished-at="2023-11-29T23:03:50 IST" duration-ms="2219" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method is-config="true" signature="setupURL()[pri:0, instance:shrutika.Assignment12@2accdbb5]" started-at="2023-11-29T23:03:50 IST" name="setupURL" finished-at="2023-11-29T23:03:51 IST" duration-ms="681" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupURL -->
+        <test-method signature="verifyDemoTableRownNColumns()[pri:0, instance:shrutika.Assignment12@2accdbb5]" started-at="2023-11-29T23:03:51 IST" name="verifyDemoTableRownNColumns" finished-at="2023-11-29T23:03:51 IST" duration-ms="319" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyDemoTableRownNColumns -->
+      </class> <!-- shrutika.Assignment12 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

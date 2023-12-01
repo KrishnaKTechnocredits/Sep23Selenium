@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-12-01T23:15:05 IST" name="Default suite" finished-at="2023-12-01T23:15:10 IST" duration-ms="4776">
+    <groups>
+    </groups>
+    <test started-at="2023-12-01T23:15:05 IST" name="Default test" finished-at="2023-12-01T23:15:10 IST" duration-ms="4776">
+      <class name="shrutika.Assignment13">
+        <test-method is-config="true" signature="launchChrome()[pri:0, instance:shrutika.Assignment13@2accdbb5]" started-at="2023-12-01T23:15:05 IST" name="launchChrome" finished-at="2023-12-01T23:15:08 IST" duration-ms="2538" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchChrome -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:shrutika.Assignment13@2accdbb5]" started-at="2023-12-01T23:15:08 IST" name="setUp" finished-at="2023-12-01T23:15:09 IST" duration-ms="1593" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="printLastRowData()[pri:0, instance:shrutika.Assignment13@2accdbb5]" started-at="2023-12-01T23:15:09 IST" name="printLastRowData" finished-at="2023-12-01T23:15:10 IST" duration-ms="589" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- printLastRowData -->
+      </class> <!-- shrutika.Assignment13 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

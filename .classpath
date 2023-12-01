@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/byte-buddy-1.8.15.jar"/>
 	<classpathentry kind="lib" path="libs/client-combined-3.141.59.jar"/>
 	<classpathentry kind="lib" path="libs/client-combined-3.141.59-sources.jar"/>
@@ -14,7 +13,6 @@
 	<classpathentry kind="lib" path="libs/guava-25.0-jre.jar"/>
 	<classpathentry kind="lib" path="libs/okhttp-3.11.0.jar"/>
 	<classpathentry kind="lib" path="libs/okio-1.14.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

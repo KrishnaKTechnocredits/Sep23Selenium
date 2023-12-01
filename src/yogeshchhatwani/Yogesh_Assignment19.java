@@ -8,23 +8,17 @@ Note: please refer to link for expected employee, office map.
 */
 package yogeshchhatwani;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -53,7 +47,7 @@ public class Yogesh_Assignment19 {
 	void uniqueOffices() {
 		List<WebElement> empRows = driver.findElements(By.xpath("//table[@id='example']/tbody/tr/td[3]"));
 		Map<String, Integer> officeEmployeeCount = new LinkedHashMap<String, Integer>();
-
+	
 		for (WebElement row : empRows) {
 			String office = row.getText();
 
@@ -64,7 +58,7 @@ public class Yogesh_Assignment19 {
 				officeEmployeeCount.put(office, 1);
 			}
 		}
-		System.out.println(officeEmployeeCount);
+		//System.out.println(officeEmployeeCount);
 	}
 
 	@AfterClass

@@ -9,17 +9,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment13 {
 	
 	WebDriver driver;
-
-	void launchChrome(String url) {
+	
+	@BeforeClass
+	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -30,8 +34,8 @@ public class Assignment13 {
 		}
 	}
 	
+	@Test
 	void verify() throws InterruptedException{
-		launchChrome("http://automationbykrishna.com");
 		System.out.println("Navigate to Demo Table");
 		driver.findElement(By.xpath("//a[@id='demotable']")).click();
 		sleep(3000);
@@ -45,10 +49,10 @@ public class Assignment13 {
 			String text = driver.findElement(By.xpath("//table[@id='table1']/tbody//tr["+lastRowCount+"]/td["+index+"]")).getText();
 			System.out.print(text + " ");
 		}
-		driver.close();
 	}
 	
-	public static void main(String[] args) throws InterruptedException {
-		new Assignment13().verify();
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

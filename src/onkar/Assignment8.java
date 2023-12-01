@@ -11,19 +11,21 @@ selectByIndex();*/
 
 package onkar;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment8 {
 	
 	WebDriver driver;
-
-	void setup(String url) {
+	
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -32,7 +34,7 @@ public class Assignment8 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("https://www.facebook.com/");
 	}
 
 	void sleep(int ms) {
@@ -43,9 +45,14 @@ public class Assignment8 {
 		}
 	}
 	
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
+	}
+	
+	@Test
 	void facebookDemo() {
-		setup("https://www.facebook.com/");
-		
 		System.out.println("Click on 'Create new account'");
 		driver.findElement(By.xpath("//a[text()='Create new account']")).click();
 		sleep(3000);
@@ -77,12 +84,5 @@ public class Assignment8 {
 			System.out.println("Gender is selected : "+driver.findElement(By.xpath("//label[text()='Male']")).getText());
 		else
 			System.out.println("Gender is not selected correctly");
-		
-		System.out.println("Closed the browser");
-		driver.close();
-	}
-	
-	public static void main(String[] args) {
-		new Assignment8().facebookDemo();
 	}
 }

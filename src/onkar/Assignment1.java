@@ -15,12 +15,16 @@ package onkar;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment1 {
 	
 	WebDriver driver;
 	
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -29,12 +33,17 @@ public class Assignment1 {
 		driver.manage().window().maximize();
 		
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 	
-	void signUpTest() {
-		setup("http://automationbykrishna.com");
-		
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
+	}
+	
+	@Test
+	void signUpTest() {		
 		System.out.println("Verify the browser title");
 		String browserTitle = driver.getTitle();
 		if(browserTitle.equals("Login Signup Demo"))
@@ -78,13 +87,5 @@ public class Assignment1 {
 		String currentUrl = driver.getCurrentUrl();
 		if(currentUrl.equals("https://www.technocredits.com/courses"))
 			System.out.println("Test is passed");
-		
-		System.out.println("Close browser window");
-		driver.close();
-	}
-	
-	public static void main(String[] args) {
-		Assignment1 assignment1 = new Assignment1();
-		assignment1.signUpTest();
 	}
 }

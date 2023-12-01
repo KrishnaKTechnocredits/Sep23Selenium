@@ -1,3 +1,9 @@
+/*- Navigate to http://automationbykrishna.com/index.html
+- Navigate Basic elements
+- Checkboxes and radios - Select multiple checkboxes
+- Checkboxes and radios - DesSelect atleast 1 checkboxes
+- Get List of all selected checkboxes.*/
+
 package onkar;
 
 import java.util.List;
@@ -8,12 +14,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment11 {
 	
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -22,7 +32,7 @@ public class Assignment11 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -32,10 +42,15 @@ public class Assignment11 {
 			e.printStackTrace();
 		}
 	}
+	
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
+	}
 
+	@Test
 	void multiSelectTest() {
-		setup("http://automationbykrishna.com");
-
 		System.out.println("Navigate to Basic elements");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
 		sleep(3000);
@@ -54,12 +69,5 @@ public class Assignment11 {
 				break;*/
 		}
 		System.out.println("Selection first "+index+" option in multiselect list");
-		
-		System.out.println("Closed the browser");
-		driver.close();
-	}
-
-	public static void main(String[] args) {
-		new Assignment11().multiSelectTest();
 	}
 }

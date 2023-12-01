@@ -9,12 +9,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment13 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeClass
+	void setup() {
 		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -23,7 +27,7 @@ public class Assignment13 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -33,28 +37,25 @@ public class Assignment13 {
 			e.printStackTrace();
 		}
 	}
-
-	void printLastRow() {
-		setup("http://automationbykrishna.com");
-
-		System.out.println("Navigate to Demo Tables");
-		driver.findElement(By.xpath("//a[@id='demotable']")).click();
-		sleep(3000);
-
-		List<WebElement> column = driver.findElements(By.xpath("//table[@id='table1']/thead/tr/th"));
-		int columnCount = column.size();
-		
-		System.out.print("Printed elements of the last row : ");
-		for(int index=1; index<=columnCount; index++) {
-			System.out.print(driver.findElement(By.xpath("//table[@id='table1']/tbody/tr[5]/td["+index+"]")).getText());
-			System.out.print(" ");
-		}
-		
-		System.out.println("\n"+"Closed the browser");
+	
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("\n"+"Close browser window");
 		driver.close();
 	}
 
-	public static void main(String[] args) {
-		new Assignment13().printLastRow();
+	@Test
+	void printLastRow() {
+		System.out.println("Navigate to Demo Tables");
+		driver.findElement(By.xpath("//a[@id='demotable']")).click();
+		sleep(3000);
+		
+		List<WebElement> lastRowElements = driver.findElements(By.xpath("//table[@id='table1']/tbody/tr[5]/td"));
+		
+		System.out.print("Printed elements of the last row : ");
+		for(WebElement e : lastRowElements) {
+			System.out.print(e.getText());
+			System.out.print(" ");
+		}
 	}	
 }

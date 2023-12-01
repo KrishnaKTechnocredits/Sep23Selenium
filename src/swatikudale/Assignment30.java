@@ -24,7 +24,7 @@ public class Assignment30 {
 	@BeforeMethod
 	void setup() {
 
-		System.out.println("Launch Chrome Browser and  Navigate to http://automationbykrishna.com");
+		System.out.println("Launch Chrome Browser and  Navigate to https://rahulshettyacademy.com/client/");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 

@@ -11,12 +11,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class Assignment30 {
 	
 	@Test
-	void validateLoginMessage() throws InterruptedException {
+	void validateLoginMessage(){
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		
@@ -28,10 +30,10 @@ public class Assignment30 {
 		driver.findElement(By.xpath("//input[@id='userEmail']")).sendKeys("patilonkar18@gmail.com");
 		driver.findElement(By.xpath("//input[@id='userPassword']")).sendKeys("Ishani@1");
 		System.out.println("Click on Login");
-		Thread.sleep(1000);
 		driver.findElement(By.xpath("//input[@id='login']")).click();
-		String loginMessage = driver.findElement(By.xpath("//div[@aria-label='Login Successfully']")).getText();
-		Thread.sleep(5000);
+		WebDriverWait wait = new WebDriverWait(driver,10);
+		String loginMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@aria-label='Login Successfully']"))).getText();
+		System.out.println(loginMessage);
 		if(loginMessage.equals("Login Successfully"))
 			System.out.println("Login message is shown correctly");
 		else

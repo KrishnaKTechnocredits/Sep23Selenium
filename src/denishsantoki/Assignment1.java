@@ -16,10 +16,12 @@ package denishsantoki;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 public class Assignment1 {
-
-	public static void main(String[] args) {
+	
+	@Test
+	void verify() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();// launch chrome browser
 		driver.manage().window().maximize();
@@ -35,5 +37,6 @@ public class Assignment1 {
 		driver.navigate().refresh();
 		System.out.println(driver.getTitle());
 		System.out.println(driver.getCurrentUrl());
-	}
+		driver.close();
+	}	
 }

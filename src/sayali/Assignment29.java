@@ -1,0 +1,52 @@
+package sayali;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
+
+public class Assignment29 {
+
+	@Test
+	public void uploadFile() throws InterruptedException, AWTException {
+		WebDriver driver = LaunchChromeBrowser1.launchBrowser("http://automationbykrishna.com");
+
+		driver.findElement(By.id("basicelements")).click();
+		Thread.sleep(2000);
+
+		WebElement ele = driver.findElement(By.xpath("//input[@id='exampleInputFile']"));
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click()", ele);
+
+		Thread.sleep(3000);
+
+		StringSelection strSelection = new StringSelection("C:\\Users\\Siddha\\Documents\\Sayali\\TestFile.txt");
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(strSelection, null);
+
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_V);
+
+		robot.keyRelease(KeyEvent.VK_V);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		Thread.sleep(2000);
+
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+	}
+}

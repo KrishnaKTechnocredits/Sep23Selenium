@@ -17,67 +17,84 @@ package denishsantoki;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment2 {
 	
-	public static void main(String[] args) {
+	WebDriver driver;
+	
+	@BeforeClass
+	void setUp() {
+		System.out.println("Launch chrome browser");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();// launch chrome browser
+		driver = new ChromeDriver();
+
+		System.out.println("Maximize browser window");
 		driver.manage().window().maximize();
-		String url = "http://automationbykrishna.com";
-		System.out.println("STEP - Navigate to automationbykrinshna.com");
-		driver.navigate().to(url);
-		System.out.println("STEP - Click On Ragistration");
-		WebElement element = driver.findElement(By.id("registration2"));
-		element.click();
-		
+
+		System.out.println("Open given URL");
+		driver.get("http://automationbykrishna.com");
+	}
+	
+	void sleep(int ms) {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(ms);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		System.out.println("STEP - Enter User Name");
-		WebElement userName = driver.findElement(By.id("unameSignin"));
-		userName.sendKeys("Denish");
-
-		System.out.println("STEP - Enter Password");
-		WebElement password = driver.findElement(By.id("pwdSignin"));
-		password.sendKeys("denish@1370");
-
-		System.out.println("STEP - Click on login Button");
-		WebElement loginButton = driver.findElement(By.xpath("//button[@id='btnsubmitdetails']"));
-		loginButton.click();
-
-		System.out.println("Verify - Alert message should be Success");
-		Alert alert = driver.switchTo().alert();
-		String alertText = alert.getText();
-		System.out.println("Alert is " + alertText);
-		alert.accept();
-		
-		userName.clear();
-		password.clear();
-		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		userName.sendKeys("Denish");
-		password.sendKeys("denish@1370");
-		
-		System.out.println("STEP - Click on login Button");
-		WebElement loginButton1 = driver.findElement(By.xpath("//button[@id='btnsubmitdetails']"));
-		loginButton1.click();
-
-		if (alert.equals("Failed! enter the strong password")) {
-			System.out.println("Test Pass");
-		} else {
-			System.out.println("Test Fail");
 		}
 	}
+	
+	@Test
+	void verify() {
+		System.out.println("click on Registration link");
+		driver.findElement(By.id("registration2")).click();
+
+		sleep(3000);
+		System.out.println("Enter Username");
+		driver.findElement(By.id("unameSignin")).sendKeys("Patilonkar18");
+		
+		System.out.println("Enter password having length > 8 characters");
+		driver.findElement(By.id("pwdSignin")).sendKeys("123456789");
+		
+		System.out.println("Click on Login button");
+		driver.findElement(By.id("btnsubmitdetails")).click();
+		System.out.println("Verify alert message should be \"Success!\"");
+		Alert javascriptAlert = driver.switchTo().alert();
+		String alertText = javascriptAlert.getText();
+		if (alertText.equals("Success!"))
+			System.out.println("Login test with correct password is passed");
+		else
+			System.out.println("Login test is failed");
+		javascriptAlert.accept();
+		
+		System.out.println("clear username and password");
+		driver.findElement(By.id("unameSignin")).clear();
+		driver.findElement(By.id("pwdSignin")).clear();
+		
+		System.out.println("Enter Username");
+		driver.findElement(By.id("unameSignin")).sendKeys("Patilonkar18");
+		
+		System.out.println("Enter password having length < 8 characters");
+		driver.findElement(By.id("pwdSignin")).sendKeys("123");
+		
+		System.out.println("Click on Login button");
+		driver.findElement(By.id("btnsubmitdetails")).click();
+		System.out.println("Verify alert message should be \"Failed! please enter strong password\"");
+		javascriptAlert = driver.switchTo().alert();
+		alertText = javascriptAlert.getText();
+		if (alertText.equals("Failed! please enter strong password"))
+			System.out.println("Login test with incorrect password is passed");
+		else
+			System.out.println("Login test is failed");
+		javascriptAlert.accept();
+	}
+	
+	@AfterClass
+	void tearDown() {
+		driver.close();
+	}
+	
 }

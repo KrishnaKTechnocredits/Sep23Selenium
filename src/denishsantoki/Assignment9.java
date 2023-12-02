@@ -13,17 +13,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment9 {
 
 	WebDriver driver;
-
-	void launchChrome(String url) {
+	
+	@BeforeClass
+	void launchChrome() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("https://www.facebook.com/");
 	}
 
 	void sleep(int ms) {
@@ -34,9 +38,8 @@ public class Assignment9 {
 		}
 	}
 
+	@Test
 	void facebookDemo() {
-		launchChrome("https://www.facebook.com/");
-
 		System.out.println("Click on Create new account");
 		driver.findElement(By.xpath("//a [text() = 'Create new account']")).click();
 		sleep(3000);
@@ -75,11 +78,10 @@ public class Assignment9 {
 		Select pronounSelect = new Select(selectPronoun);
 		pronounSelect.selectByValue("2");
 		System.out.println("Test Pass");
-		driver.close();
 	}
 
-	public static void main(String[] args) {
-		Assignment9 ass = new Assignment9();
-		ass.facebookDemo();
+	@AfterClass
+	void tearDown() {
+		driver.close();
 	}
 }

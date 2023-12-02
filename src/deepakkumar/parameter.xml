@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	 <parameter name="path" value="D:\Deepak's Learning Stuff\TechnoCredits Sep 2023\Notes\Notes.txt"></parameter>
+  <test thread-count="5" name="Test">
+	<classes>
+      <class name="deepakkumar.Assignment29"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

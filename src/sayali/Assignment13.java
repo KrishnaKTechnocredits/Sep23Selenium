@@ -9,17 +9,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment13 {
 
 	WebDriver driver;
 
-	void launchChrome(String url) {
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+	@BeforeMethod
+	void launchChrome() {
+		System.setProperty("webdriver.chrome.driver", "D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		System.out.println("Launch Chrome");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -30,8 +34,8 @@ public class Assignment13 {
 		}
 	}
 
+	@Test
 	void printData() throws InterruptedException {
-		launchChrome("http://automationbykrishna.com");
 		System.out.println("Navigate to Demo Table");
 		driver.findElement(By.xpath("//a[@id='demotable']")).click();
 		sleep(3000);
@@ -47,10 +51,11 @@ public class Assignment13 {
 					.getText();
 			System.out.print(text + " ");
 		}
-		driver.close();
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		new Assignment13().printData();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

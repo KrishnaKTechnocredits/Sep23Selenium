@@ -13,12 +13,16 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment3 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("STEP 1/2: Launch Chrome Browser and  Navigate to http://automationbykrishna.com");
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -27,7 +31,7 @@ public class Assignment3 {
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
 	void sleep(int ms) {
@@ -38,8 +42,8 @@ public class Assignment3 {
 		}
 	}
 
+	@Test
 	void verifyBasicElementTab() {
-		setup("http://automationbykrishna.com");
 
 		System.out.println("STEP 3.Click on Basic Elements link");
 		driver.findElement(By.xpath("//a[@id='basicelements']")).click();
@@ -70,14 +74,13 @@ public class Assignment3 {
 			System.out.println("Test Pass");
 		} else
 			System.out.println("Test Fail");
-		
-		javaSctriptAlert.accept();
 
-		System.out.println("Browser close");
-		driver.close();
+		javaSctriptAlert.accept();
 	}
 
-	public static void main(String[] args) {
-		new Assignment3().verifyBasicElementTab();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

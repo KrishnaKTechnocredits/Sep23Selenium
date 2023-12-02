@@ -55,9 +55,9 @@ public class Assignment11 {
 
 	@Test (priority =1)
 	void scrollTillView() {
+		basicElement();
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)",
-				driver.findElement(By.xpath("//div[@class='col-lg-10']/label[1]")));
+		js.executeScript("arguments[0].scrollIntoView(true)",driver.findElement(By.xpath("//div[@class='col-lg-10']/label[1]")));
 	}
 
 	@Test

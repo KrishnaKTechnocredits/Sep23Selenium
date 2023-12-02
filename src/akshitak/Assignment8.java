@@ -19,7 +19,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Assignment8 {
-
 	WebDriver driver;
 
 	@BeforeClass

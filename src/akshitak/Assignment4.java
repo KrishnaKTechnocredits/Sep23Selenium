@@ -13,6 +13,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class Assignment4 {
+	
 	WebDriver driver;
 
 	@BeforeClass

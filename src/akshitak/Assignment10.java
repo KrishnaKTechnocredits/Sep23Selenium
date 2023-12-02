@@ -32,8 +32,7 @@ public class Assignment10 {
 		System.out.println("Click Basic Element");
 		driver.findElement(By.id("basicelements")).click();
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement check = driver
-				.findElement(By.xpath("//form[@class='form-horizontal adminex-form']//div[@class='col-lg-10']/div[1]"));
+		WebElement check = driver.findElement(By.xpath("//form[@class='form-horizontal adminex-form']//div[@class='col-lg-10']/div[1]"));
 		js.executeScript("arguments[0].scrollIntoView(true)", check);
 		check.click();
 		System.out.println("Single checkbox selected");

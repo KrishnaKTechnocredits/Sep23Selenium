@@ -15,76 +15,81 @@ package sayali;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment1 {
 
 	WebDriver driver;
 
-	void setup(String url) {
+	@BeforeMethod
+	void setup() {
 		System.out.println("Launch chrome browser");
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 
 		System.out.println("Maximize browser window");
 		driver.manage().window().maximize();
 
 		System.out.println("Open given URL");
-		driver.get(url);
+		driver.get("http://automationbykrishna.com");
 	}
 
+	@Test
 	void signUpTest() {
-		setup("http://automationbykrishna.com");
 
 		System.out.println("Verify the browser title");
 		String browserTitle = driver.getTitle();
-		if(browserTitle.equals("Login Signup Demo"))
-			System.out.println("Browser title is correct : "+browserTitle);
+		if (browserTitle.equals("Login Signup Demo"))
+			System.out.println("Browser title is correct : " + browserTitle);
 		else
 			System.out.println("Test failed");
 
 		System.out.println("Launch Technocredits and verify browser title");
 		driver.get("https://www.technocredits.com/courses");
 		browserTitle = driver.getTitle();
-		if(browserTitle.equals("Krishna’s Courses"))
-			System.out.println("Browser title is correct : "+browserTitle);
+		if (browserTitle.equals("Krishna’s Courses"))
+			System.out.println("Browser title is correct : " + browserTitle);
 		else
 			System.out.println("Test failed");
 
 		System.out.println("Navigate back and check if title is correct");
 		driver.navigate().back();
 		browserTitle = driver.getTitle();
-		if(browserTitle.equals("Login Signup Demo"))
-			System.out.println("Browser title is correct : "+browserTitle);
+		if (browserTitle.equals("Login Signup Demo"))
+			System.out.println("Browser title is correct : " + browserTitle);
 		else
 			System.out.println("Test failed");
 
 		System.out.println("Navigate forward and check if title is correct");
 		driver.navigate().forward();
 		browserTitle = driver.getTitle();
-		if(browserTitle.equals("Krishna’s Courses"))
-			System.out.println("Browser title is correct : "+browserTitle);
+		if (browserTitle.equals("Krishna’s Courses"))
+			System.out.println("Browser title is correct : " + browserTitle);
 		else
 			System.out.println("Test failed");
 
 		System.out.println("Refresh the page and check if title is correct");
 		driver.navigate().refresh();
 		browserTitle = driver.getTitle();
-		if(browserTitle.equals("Krishna’s Courses"))
-			System.out.println("Browser title is correct : "+browserTitle);
+		if (browserTitle.equals("Krishna’s Courses"))
+			System.out.println("Browser title is correct : " + browserTitle);
 		else
 			System.out.println("Test failed");
 
 		System.out.println("Verify the current url");
 		String currentUrl = driver.getCurrentUrl();
-		if(currentUrl.equals("https://www.technocredits.com/courses"))
+		if (currentUrl.equals("https://www.technocredits.com/courses")) {
 			System.out.println("Test is passed");
-
-		System.out.println("Close browser window");
-		driver.close();
+		} else {
+			System.out.println("Test failed");
+		}
 	}
 
-	public static void main(String[] args) {
-		Assignment1 assignment1 = new Assignment1();
-		assignment1.signUpTest();
+	@AfterMethod
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

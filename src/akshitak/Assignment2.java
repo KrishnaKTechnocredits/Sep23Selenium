@@ -30,7 +30,6 @@ public class Assignment2 {
 	
 	@Test
 	void registerWithValidCredential() {
-		
 		System.out.println("Enter UserName");
 		driver.findElement(By.id("unameSignin")).sendKeys("Akshita");
 		System.out.println("Enter Password");

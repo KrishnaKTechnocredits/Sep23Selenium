@@ -13,15 +13,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment16 {
 	WebDriver driver;
 
-	public void launchBrowser(String url) {
-		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
+	@BeforeClass
+	public void launchBrowser() {
+		System.setProperty("webdriver.chrome.driver",
+				"D:\\Testing_Class Sayali\\JavaProject\\Sep23Selenium\\src\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get(url);
+		driver.get("https://www.flipkart.com/");
 	}
 
 	public void tempWait(int mSecs) {
@@ -32,8 +37,8 @@ public class Assignment16 {
 		}
 	}
 
+	@Test
 	public void mHoverCheck() {
-		launchBrowser("https://www.flipkart.com/");
 		tempWait(4000);
 		driver.findElement(By.xpath("//span[@role='button']")).click();
 
@@ -73,10 +78,10 @@ public class Assignment16 {
 		WebElement hoverHomeFurniture = driver.findElement(By.xpath("//div[@aria-label='Home & Furniture']"));
 		System.out.println("\nHOME & FURNITURE");
 		mhoverStep(hoverHomeFurniture);
-
 	}
 
 	public void mhoverStep(WebElement element) {
+		tempWait(4000);
 		Actions action = new Actions(driver);
 		action.moveToElement(element).build().perform();
 		tempWait(3000);
@@ -96,8 +101,9 @@ public class Assignment16 {
 			System.out.println("*NO OPTIONS AVAILABLE*");
 	}
 
-	public static void main(String[] args) {
-		Assignment16 ass16 = new Assignment16();
-		ass16.mHoverCheck();
+	@AfterClass
+	void closeBrowser() {
+		System.out.println("Close browser window");
+		driver.close();
 	}
 }

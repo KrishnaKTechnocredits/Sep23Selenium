@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Assignment13 {
-	
+
 	WebDriver driver;
 
 	@BeforeClass
@@ -34,22 +34,23 @@ public class Assignment13 {
 		String url = "http://automationbykrishna.com/index.html";
 		driver.navigate().to(url);
 	}
-	
+
 	@Test
 	void printLastRowData() {
-		
+
 		System.out.println("Step 3: Navigate to Demo Table");
 		driver.findElement(By.xpath("//a[@id='demotable']")).click();
-		
+
 		List<WebElement> column = driver.findElements(By.xpath("//table[@id='table1']/thead/tr/th"));
 		int columnCount = column.size();
-		
+
 		System.out.print("Step 4: Last row data : ");
-		for(int index=1; index<=columnCount; index++) {
-			System.out.print(driver.findElement(By.xpath("//table[@id='table1']/tbody/tr[5]/td["+index+"]")).getText());
+		for (int index = 1; index <= columnCount; index++) {
+			System.out.print(
+					driver.findElement(By.xpath("//table[@id='table1']/tbody/tr[5]/td[" + index + "]")).getText());
 			System.out.print(" ");
 		}
-		
+
 		System.out.println("\nStep 5:Close the browser");
 		driver.close();
 	}

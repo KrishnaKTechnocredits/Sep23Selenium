@@ -11,10 +11,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment12 {
 	WebDriver driver;
 
+	@BeforeMethod
 	public void setBrowser() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -26,6 +30,7 @@ public class Assignment12 {
 		wait(3000);
 	}
 
+	@Test
 	public void verifyRowAndCols() throws InterruptedException {
 		// - Navigate Demo tables
 		System.out.println("Step 2 - Navigate Demo tables");
@@ -54,17 +59,8 @@ public class Assignment12 {
 		}
 	}
 
+	@AfterMethod
 	public void closeDriver() {
 		driver.close();
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		Assignment12 assignment12 = new Assignment12();
-		assignment12.setBrowser();
-		assignment12.wait(3000);
-		assignment12.verifyRowAndCols();
-		assignment12.wait(3000);
-		assignment12.closeDriver();
-
 	}
 }

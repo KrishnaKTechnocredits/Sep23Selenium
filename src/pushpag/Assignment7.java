@@ -1,4 +1,3 @@
-
 //Assignment7 Nov19 (Checkbox)
 //
 //- Navigate to http://automationbykrishna.com/index.html
@@ -15,10 +14,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment7 {
 	WebDriver driver;
-
+	
+	@BeforeMethod
 	public void setBrowser() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -63,19 +66,14 @@ public class Assignment7 {
 		}
 	}
 	
+	@AfterMethod
 	public void closeDriver() {
 		driver.close();
 	}
 
-	public static void main(String[] args) {
-		Assignment7 assignment7 = new Assignment7();
-		assignment7.setBrowser();
-		assignment7.wait(3000);
-		assignment7.verifyRadioButton();
-		assignment7.wait(3000);
-		assignment7.verifyCheckbox();
-		assignment7.wait(3000);
-		assignment7.closeDriver();
-
+	@Test
+	public void verifyRadioAndCheckBox() {
+		verifyRadioButton();
+		verifyCheckbox();
 	}
 }

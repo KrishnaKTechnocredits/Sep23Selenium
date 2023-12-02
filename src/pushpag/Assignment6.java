@@ -14,10 +14,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class Assignment6 {
 	WebDriver driver;
 
+	@BeforeMethod
 	public void setBroser() throws InterruptedException {
 		// 1. Launch Chrome Browser
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
@@ -67,19 +71,15 @@ public class Assignment6 {
 		}
 	}
 
+	@AfterMethod
 	public void closeDriver() {
 		driver.close();
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		Assignment6 assignment6 = new Assignment6();
-		assignment6.setBroser();
-		assignment6.wait(3000);
-		assignment6.sendTextAndVerify();
-		assignment6.wait(3000);
-		assignment6.declineAndVerifyText();
-		assignment6.wait(3000);
-		assignment6.closeDriver();
+	@Test
+	public  void verifyAlerts() {
+		sendTextAndVerify();
+		declineAndVerifyText();
 	}
 
 }

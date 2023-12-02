@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 public class Assignment3 {
 
 	WebDriver driver;
-
 	@BeforeClass
 	void luanchChrome() {
 		System.setProperty("webdriver.chrome.driver", "D:\\Technocresdits\\Sep2023\\Chrome_Driver\\chromedriver.exe");

@@ -16,6 +16,7 @@ Assignment11 Nov19 (Multiselect dropdown & deselect)
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -50,6 +51,10 @@ public class Assignment11 {
 		System.out.println("Navigate to Basic Element");
 		driver.findElement(By.id("basicelements")).click();
 		System.out.println("Find Alert button");
+	}
+
+	@Test (priority =1)
+	void scrollTillView() {
 		basicElement();
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true)",driver.findElement(By.xpath("//div[@class='col-lg-10']/label[1]")));
@@ -69,6 +74,10 @@ public class Assignment11 {
 		for (WebElement name : list) {
 			System.out.println(name.getText());
 		}
+	}
+
+	@AfterClass
+	void tearDown() {
 		driver.close();
 	}
 }

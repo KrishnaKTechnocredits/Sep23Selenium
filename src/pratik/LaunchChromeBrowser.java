@@ -5,10 +5,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LaunchChromeBrowser {
 
-	
-	public static void main(String[] args) {
+	public static WebDriver launchBrowser(String url) {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();//this will launch chrome browser
-		driver.get("https://www.amazon.in/");//this will navigate to url
+		WebDriver driver = new ChromeDriver();// this will launch chrome browser
+		driver.get(url);// this will navigate to url
+		return driver;
 	}
 }

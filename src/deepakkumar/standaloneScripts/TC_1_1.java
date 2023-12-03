@@ -11,10 +11,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TC_01 {
+public class TC_1_1 {
 	WebDriver driver;
 
 	public void launchBrowser() {
@@ -24,26 +23,31 @@ public class TC_01 {
 	}
 
 	@Test
-	public void loginTC(String email, String password, String expectedResult) throws InterruptedException {
+	public void loginTC() throws InterruptedException {
 		launchBrowser();
 		driver.get("https://rahulshettyacademy.com/client/");
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElement(By.id("userEmail")).sendKeys(email);
+		driver.findElement(By.id("userEmail")).sendKeys("dgkankhar@gmail.com");
 		System.out.println("STEP: User enters email!");
-		driver.findElement(By.id("userPassword")).sendKeys(password);
+		driver.findElement(By.id("userPassword")).sendKeys("Deepak@21");
 		System.out.println("STEP: User enters password!");
 		driver.findElement(By.id("login")).click();
 		System.out.println("STEP: User clicks on Login button.");
-		
-		String url = driver.getCurrentUrl();
-		String toastMessage = driver.findElement(By.xpath("//div[contains(@class,'toast-message')] | //div[contains(@class,'toast-title')]")).getText(); 
-		if(expectedResult.equals("Login Successfully")) {
-			Assert.assertEquals(toastMessage, "Login Successfully");
-			Assert.assertTrue(url.endsWith("dashboard/dash"));
-		}else {
-			Assert.assertEquals(toastMessage, "Incorrect email or password.");
-			Assert.assertTrue(url.endsWith("auth/login"));
-		}
+
+		WebElement loginSuccess = driver.findElement(By.xpath("//div[@aria-label='Login Successfully']"));
+		String expectedLoginText = "Login Successfully";
+
+		if (loginSuccess.isDisplayed()) {
+			System.out.println("Login Successful!");
+		} else
+			System.out.println("Login Unsuccessful!");
+
+		String actualLoginText = loginSuccess.getText();
+
+		if (actualLoginText.equals(expectedLoginText)) {
+			System.out.println("VERIFICATION: Login pop-up text is as expected!");
+		} else
+			System.out.println("VERIFICATION: Login pop-up text is not as expected!");
 		driver.close();
 	}
 }

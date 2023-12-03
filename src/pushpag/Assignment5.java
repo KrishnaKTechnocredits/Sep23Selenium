@@ -12,10 +12,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 public class Assignment5 {
 
-	public static void main(String[] args) throws InterruptedException {
+	@Test
+	public static void veirfyDetails() throws InterruptedException {
 
 		// 1. Launch Chrome Browser
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");

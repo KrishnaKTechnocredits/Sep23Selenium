@@ -13,10 +13,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 
 public class Assignment10 {
 	WebDriver driver;
-
+	
+	@BeforeClass
 	public void setBrowser() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -28,6 +32,7 @@ public class Assignment10 {
 		wait(3000);
 	}
 
+	@org.testng.annotations.Test
 	public void verifyMultipleCheckBoxes() throws InterruptedException {
 		// - Navigate Basic elements
 		System.out.println("Step 2 - Navigate Basic elements");
@@ -60,17 +65,8 @@ public class Assignment10 {
 		}
 	}
 
+	@AfterClass
 	public void closeDriver() {
 		driver.close();
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		Assignment10 assignment10 = new Assignment10();
-		assignment10.setBrowser();
-		assignment10.wait(3000);
-		assignment10.verifyMultipleCheckBoxes();
-		assignment10.wait(3000);
-		assignment10.closeDriver();
-
 	}
 }

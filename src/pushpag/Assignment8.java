@@ -17,10 +17,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class Assignment8 {
 	WebDriver driver;
 
+	@BeforeClass
 	public void setBrowser() {
 		System.setProperty("webdriver.chrome.driver", ".\\chromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -32,6 +36,7 @@ public class Assignment8 {
 		wait(3000);
 	}
 
+	@Test
 	public void fillDetails() {
 
 		// - Click on 'Create new account'
@@ -82,17 +87,9 @@ public class Assignment8 {
 		}
 	}
 
+	@AfterClass
 	public void closeDriver() {
 		driver.close();
 	}
 
-	public static void main(String[] args) {
-		Assignment8 assignment8 = new Assignment8();
-		assignment8.setBrowser();
-		assignment8.wait(3000);
-		assignment8.fillDetails();
-		assignment8.wait(3000);
-		assignment8.closeDriver();
-
-	}
 }

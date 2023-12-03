@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-  <test thread-count="5" name="Test1To16">
+  <test thread-count="5" name="Test">
+	  <groups>
+		  <run>
+			  <include name="sanity"></include>
+			  <include name="dependsOn"></include>
+		  </run>
+	  </groups>
     <classes>
-      <class name="sayali.Assignment8"/>
-      <class name="sayali.Assignment9"/>
-      <class name="sayali.Assignment6"/>
-      <class name="sayali.Assignment7"/>
-      <class name="sayali.Assignment10"/>
-      <class name="sayali.Assignment1"/>
-      <class name="sayali.Assignment12"/>
-      <class name="sayali.Assignment11"/>
-      <class name="sayali.Assignment14"/>
-      <class name="sayali.Assignment4"/>
-      <class name="sayali.Assignment13"/>
-      <class name="sayali.Assignment5"/>
-      <class name="sayali.Assignment16"/>
-      <class name="sayali.Assignment2"/>
-      <class name="sayali.Assignment15"/>
-      <class name="sayali.Assignment3"/>
+      <class name="sayali.Assignment26"/>
     </classes>
-  </test> <!-- Test1To16 -->
+  </test> <!-- Test -->
 </suite> <!-- Suite -->

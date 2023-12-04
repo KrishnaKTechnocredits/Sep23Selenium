@@ -25,24 +25,23 @@ public class Assignment31_TC03 {
 		System.out.println("STEP:Entered password");
 		driver.findElement(By.xpath("//input[@id='login']")).click();
 		System.out.println("STEP:Clicked on login");
-			
+
 		int resultCountBefore = driver.findElements(By.xpath("//img[@class='card-img-top']")).size();
 		System.out.println("STEP:Result count before filter");
-		System.out.println(resultCountBefore+" results displayed");
-		
+		System.out.println(resultCountBefore + " results displayed");
+
 		driver.findElement(By.xpath("//section//label[text()='electronics']/parent::div/input")).click();
-		
-		
+
 		Thread.sleep(2000);
 		int resultCountAfter = driver.findElements(By.xpath("//img[@class='card-img-top']")).size();
 		System.out.println("STEP:Result count after filter");
-		System.out.println(resultCountAfter+" result displayed");
-		
-		if(resultCountBefore != resultCountAfter) {
+		System.out.println(resultCountAfter + " result displayed");
+
+		if (resultCountBefore != resultCountAfter) {
 			System.out.println("Results are displayed");
 		} else
 			System.out.println("Results are not displayed");
-		
+
 		driver.close();
-    }
+	}
 }

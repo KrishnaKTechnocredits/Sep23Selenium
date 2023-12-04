@@ -84,11 +84,8 @@ public class Assignment30 {
 		} else if (searchForListSize == 0) {
 			System.out.println("Test Fail : Search for filter does not have options");
 		}
-	}
-	
-	
-	void closeBrowser() {
-		System.out.println("Step : Close the browser");
+		
+		System.out.println("Step 6 : Close browser");
 		driver.close();
 	}
 }

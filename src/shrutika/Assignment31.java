@@ -5,13 +5,14 @@ package shrutika;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 
 public class Assignment31 {
 
 	WebDriver driver;
+
 	@BeforeMethod
 	void setup() {
 		System.out.println("STEP: Launch chrome browser");
@@ -35,7 +36,7 @@ public class Assignment31 {
 
 	@Test
 	public void validateUserFilter() {
-		
+
 		System.out.println("STEP: Entered Email address");
 		driver.findElement(By.xpath("//input[@id='userEmail']")).sendKeys("shrutikad905@gmail.com");
 
@@ -65,6 +66,7 @@ public class Assignment31 {
 		}
 	}
 
+	@AfterTest
 	void close() {
 		System.out.println("Step : Close browser");
 		driver.close();

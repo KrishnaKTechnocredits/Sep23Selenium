@@ -34,7 +34,7 @@ public class Assignment31 {
 	}
 
 	@Test
-	public void vlaidateUserFilter() {
+	public void validateUserFilter() {
 		
 		System.out.println("STEP: Entered Email address");
 		driver.findElement(By.xpath("//input[@id='userEmail']")).sendKeys("shrutikad905@gmail.com");

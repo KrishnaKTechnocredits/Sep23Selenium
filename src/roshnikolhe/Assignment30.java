@@ -62,8 +62,8 @@ public class Assignment30 {
 		driver.get("https://rahulshettyacademy.com/client/");
 
 		System.out.println("STEP - Enter user details and Login");
-		driver.findElement(By.id("userEmail")).sendKeys("bankarjaykumar@gmail.com");
-		driver.findElement(By.id("userPassword")).sendKeys("Jay@131197");
+		driver.findElement(By.id("userEmail")).sendKeys("roshnikolhe1@gmail.com");
+		driver.findElement(By.id("userPassword")).sendKeys("Practice@123");
 		driver.findElement(By.id("login")).click();
 
 		System.out.println("STEP - Verify all filters have options");

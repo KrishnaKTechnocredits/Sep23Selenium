@@ -1,63 +1,98 @@
 package technocredits.standaloneScripts;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import technocredits.actionsDemo.LaunchChromeBrowser;
 
 public class TC5 {
+	WebDriver driver;
 
 	@Test
-	public void verifyLogin() {
-		WebDriver driver = LaunchChromeBrowser.launchBrowser("https://rahulshettyacademy.com/client/");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	public void verifyLogin() throws InterruptedException {
+		driver = LaunchChromeBrowser.launchBrowser("https://rahulshettyacademy.com/client/");
+
 		driver.findElement(By.xpath("//input[@id='userEmail']")).sendKeys("harshhpatel07@gmail.com");
+
 		System.out.println("STEP: Entered Email address");
 		driver.findElement(By.xpath("//input[@id='userPassword']")).sendKeys("Hhv@123456");
+
 		System.out.println("STEP: Entered Password");
 		driver.findElement(By.xpath("//input[@id='login']")).click();
+
 		System.out.println("STEP: Clicked on Login Button");
 
 		String productSelection = "iphone 13 pro";
 
 		String locatorForAddToCart = String.format(
-				"//h5//b[text()='%s']/parent::h5/following-sibling::button[contains(text(),'Add To Cart')]",
+				"//h5//b[text()='%s']/parent::h5/following-sibling::button[contains(text(),'Add To Cart')]/i",
 				productSelection);
 
-		driver.findElement(By.xpath(locatorForAddToCart)).click();
+		waitForElementTobeVisible(By.xpath(locatorForAddToCart)).click();
 		System.out.println("STEP: product added to cart");
 
-		
+		waitUntilLoaderDisappers();
 
-		driver.findElement(By.xpath("//li//button[contains(text(),'Cart')]/i[@class='fa fa-shopping-cart']")).click();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click()",
+				driver.findElement(By.xpath("//button[@routerlink='/dashboard/cart']")));
 		System.out.println("STEP: click on cart button");
 
-		driver.findElement(By.xpath("//button[text()='Checkout']")).click();
+		waitForElementTobeVisible(By.xpath("//button[text()='Checkout']")).click();
 		System.out.println("STEP: Clicked on checkout button");
-		
-		String attValue = driver.findElement(By.xpath("//input[@fdprocessedid='tvcpyb']")).getAttribute("value");
-		if(attValue.length()==0) {
-			driver.findElement(By.xpath("//input[@fdprocessedid='tvcpyb']")).sendKeys("4542 9846 7822 2293");
+
+		waitUntilLoaderDisappers();
+
+		String attValue = driver
+				.findElement(By.xpath("//div[contains(text(),'Credit Card Number')]/following-sibling::input"))
+				.getAttribute("value");
+		if (attValue.length() == 0) {
+			driver.findElement(By.xpath("//div[contains(text(),'Credit Card Number')]/following-sibling::input"))
+					.sendKeys("4542 9846 7822 2293");
 			System.out.println("STEP: User enter credit card number");
 		}
-		
-		driver.findElement(By.xpath("//input[@fdprocessedid='avrrjy']")).sendKeys("896");
-		
-		driver.findElement(By.xpath("//input[@fdprocessedid='niftc4d']")).sendKeys("india");
-		
-		List<WebElement> listOfWebElements = driver.findElements(By.xpath("//section[@class='ta-results list-group ng-star-inserted']//button"));
-		for(WebElement singleELement : listOfWebElements) {
-			if(singleELement.getText().equalsIgnoreCase("india")) {
+
+		driver.findElement(By.xpath("//span[@class='numberCircle']/parent::div/following-sibling::input"))
+				.sendKeys("896");
+
+		driver.findElement(By.xpath("//input[@placeholder='Select Country']")).sendKeys("india");
+
+		List<WebElement> listOfWebElements = waitForAllElementTobeVisible(By.xpath("//section[@class='ta-results list-group ng-star-inserted']//button"));
+		for (WebElement singleELement : listOfWebElements) {
+			if (singleELement.getText().equalsIgnoreCase("india")) {
 				singleELement.click();
 			}
 		}
-		
-//		driver.quit();
+
+		Thread.sleep(5000);
+		driver.quit();
+	}
+
+	public void waitUntilLoaderDisappers() {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		try {
+			wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath(
+					"//div[contains(@class,'la-ball-scale-multiple')]//div[contains(@class,'ng-star-inserted')]"))));
+		} catch (Exception e) {
+
+		}
+	}
+
+	public WebElement waitForElementTobeVisible(By by) {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+	}
+	
+	public List<WebElement> waitForAllElementTobeVisible(By by) {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
 	}
 
 }

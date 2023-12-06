@@ -49,10 +49,12 @@ public class Assignment33 {
 		String toastMsg = toastBox.getText();
 		String afterURL = driver.getCurrentUrl();
 
-		if (toastMsg.equals(msg))
-			Assert.assertNotEquals(beforeURL, afterURL);
-		else if (toastMsg.equals(msg))
-			Assert.assertEquals(beforeURL, afterURL);
+		if (beforeURL.equals(afterURL)) {
+			Assert.assertEquals(toastMsg, msg);
+		} else if (!beforeURL.equals(afterURL)) {
+			Assert.assertEquals(toastMsg, msg);
+			driver.findElement(By.xpath("//button[text() = ' Sign Out ']")).click();
+		}
 	}
 
 	@Test(dataProvider = "loginCredentials2")

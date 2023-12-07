@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-public class TC_02 {
+public class TC_02_Assignment30 {
 	WebDriver driver;
 
 	public void launchBrowser() {

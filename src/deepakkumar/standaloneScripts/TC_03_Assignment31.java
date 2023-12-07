@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TC_03_Assignment31 {
@@ -22,10 +23,10 @@ public class TC_03_Assignment31 {
 	}
 
 	@Test
-	public void verifySideFilters() throws Exception {
+	public void verifySideFilters() {
 		launchBrowser();
 		driver.get("https://rahulshettyacademy.com/client/");
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.findElement(By.id("userEmail")).sendKeys("dgkankhar@gmail.com");
 		System.out.println("STEP: User enters email!");
 		driver.findElement(By.id("userPassword")).sendKeys("Deepak@21");
@@ -38,16 +39,18 @@ public class TC_03_Assignment31 {
 
 		System.out.println("Showing " + resultCountBefore + " results");
 		driver.findElement(By.xpath("//section//label[text()='electronics']/parent::div/input")).click();
-		Thread.sleep(2000);
 		int resultCountAfter = driver.findElements(By.xpath("//div[@class = 'card-body']")).size();
 
 		System.out.println("STEP: Result Count fetch after filter applied");
 		System.out.println("Showing " + resultCountAfter + " results");
 
-		if (resultCountBefore != resultCountAfter)
-			System.out.println("Results are displayed!");
-		else
-			System.out.println("Results are not displayed!");
+		Assert.assertNotEquals(resultCountAfter, resultCountBefore, "Results are not displayed!");
+		System.out.println("***Results are displayed!***");
+		
+//		if (resultCountBefore != resultCountAfter)
+//			System.out.println("Results are displayed!");
+//		else
+//			System.out.println("Results are not displayed!");
 
 		driver.close();
 	}

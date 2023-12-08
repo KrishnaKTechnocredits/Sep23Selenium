@@ -21,10 +21,10 @@ public class TC5 {
 	WebDriver driver;
 
 	@Test
-	void verifyLogin() {
+	void verifyLogin() throws InterruptedException {
 		System.out.println("STEP: Navigate to URL");
 		driver = LaunchChromeBrowser.launchBrowser("https://rahulshettyacademy.com/client/");
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		System.out.println("STEP:Enter User name");
 		driver.findElement(By.id("userEmail")).sendKeys("ak@demo.com");
 		System.out.println("STEP:Enter the Password");
@@ -40,6 +40,7 @@ public class TC5 {
 		System.out.println("STEP : Click cart tab");
 		driver.findElement(By.xpath("//li/button[contains(text(),'Cart')]")).click();
 		System.out.println("STEP :Click on Checkout Button");
+		Thread.sleep(10);
 		driver.findElement(By.xpath("//button[text()='Checkout']")).click();
 		System.out.println("STEP : user enter the 4542 9931 9292 2293 credit number");
 		driver.findElement(By.xpath("//input[@value='4542 9931 9292 2293']")).sendKeys("4542 9931 9292 2293");

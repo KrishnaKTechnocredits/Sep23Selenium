@@ -27,6 +27,11 @@ public class TC_04_Assignment34 {
 		driver.manage().window().maximize();
 		wait = new WebDriverWait(driver, 10);
 	}
+	
+	public WebElement waitForElement(String locator) {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+	}
+	
 
 	@Test(dataProvider = "loginDetails")
 	public void addingInCart(String url, String uName, String uPasswrd) {
@@ -42,7 +47,9 @@ public class TC_04_Assignment34 {
 				.format("//h5//b[text()='%s']/parent::h5/following-sibling::button[text()=' Add To Cart']", product);
 
 		System.out.println("STEP: Product Added in the Cart!");
-		WebElement addToCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(productLocator)));
+		WebElement addToCart = waitForElement(productLocator);
+				
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(productLocator)));
 		addToCart.click();
 
 		WebElement toastMsg = wait.until(

@@ -1,6 +1,7 @@
-package jyotisaxena.datadriven;
+package sayali.datadriven;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -13,12 +14,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import jyotisaxena.datadriven.ExcelOperationsTest;
-import jyoti.utility.ExcelOperationsTest;
+import sayali.datadriven.ExcelOperations.ExcelOperations;
 
-public class Assignment33_1_VerifyRegistrationDataDrivenTest {
-	WebDriver driver;
+public class Assignment33_LoginFor_AutomationByKrishna {
 
+WebDriver driver;
+	
 	@BeforeMethod
 	void setUp() {
 		System.out.println("STEP - Launch chrome browser");
@@ -30,16 +31,9 @@ public class Assignment33_1_VerifyRegistrationDataDrivenTest {
 
 		System.out.println("STEP - Launch Automationbykrishna.com");
 		driver.get("http://automationbykrishna.com/");
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
-
-	public void waitABit(int ms) {
-		try {
-			Thread.sleep(250);
-		} catch (InterruptedException ie) {
-			ie.printStackTrace();
-		}
-	}
-
+	
 	@Test(dataProvider = "loginDataProvider")
 	void verifyLogin(String username, String password, String expectedAlertText) {
 		System.out.println("#### TEST DATA ####");
@@ -47,42 +41,40 @@ public class Assignment33_1_VerifyRegistrationDataDrivenTest {
 		System.out.println(password);
 		System.out.println(expectedAlertText);
 		System.out.println("##################");
-
+		
 		System.out.println("STEP - Click on Registration link");
-		WebElement registrationLinkElement = driver.findElement(By.xpath("//a[@id='registration2']"));
+		WebElement registrationLinkElement = driver.findElement(By.id("registration2"));
 		registrationLinkElement.click();
-		waitABit(250);
 
 		System.out.println("STEP - Enter username");
-		WebElement usernameElement = driver.findElement(By.xpath("//input[@id='unameSignin']"));
+		WebElement usernameElement = driver.findElement(By.id("unameSignin"));
 		usernameElement.sendKeys(username);
-		waitABit(250);
-		System.out.println("STEP - Enter password");
-		WebElement passwordElement = driver.findElement(By.xpath("//input[@id='pwdSignin']"));
-		passwordElement.sendKeys(password);
-		waitABit(250);
 
-		WebElement loginBtn = driver.findElement(By.xpath("//button[@id='btnsubmitdetails']"));
+		System.out.println("STEP - Enter password");
+		WebElement passwordElement = driver.findElement(By.id("pwdSignin"));
+		passwordElement.sendKeys(password);
+
+		WebElement loginBtn = driver.findElement(By.id("btnsubmitdetails"));
 		loginBtn.click();
-		waitABit(250);
-		System.out.println("VERIFY - Alter message");
+		
+		System.out.println("VERIFY - Alert message");
 		Alert alert = driver.switchTo().alert();
 		String alertText = alert.getText();
 		System.out.println("AlertText is " + alertText);
-
+		
 		Assert.assertEquals(alertText, expectedAlertText);
 		alert.accept();
 	}
-
+	
 	@DataProvider
 	public Object[][] loginDataProvider() throws IOException {
-		Object[][] data = ExcelOperationsTest.getAllRows(".//testdata/TestDataDriven.xlsx", "DataSet");
+		
+		Object[][] data = ExcelOperations.getAllRows(".//testdata/LoginData.xlsx", "Data");
 		return data;
 	}
-
+	
 	@AfterMethod
 	void tearDown() {
 		driver.close();
 	}
-
 }
